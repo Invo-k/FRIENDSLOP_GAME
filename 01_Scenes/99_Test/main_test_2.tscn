@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://vuufbq7n6tpy"]
+
+[ext_resource type="Script" uid="uid://dchinkfq5henj" path="res://01_Scenes/99_Test/main_test.gd" id="1_h7823"]
+[ext_resource type="PackedScene" uid="uid://bkj7rbql7e8jp" path="res://01_Scenes/99_Test/test_menu.tscn" id="2_rdi2q"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bhunq"]
+
+[node name="Main" type="Node2D" unique_id=1126822181]
+script = ExtResource("1_h7823")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1286772384]
+unique_name_in_owner = true
+
+[node name="TEST_MENU" parent="CanvasLayer" unique_id=976001990 instance=ExtResource("2_rdi2q")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=361015804]
+_spawnable_scenes = PackedStringArray("uid://bnr8cpkdbnw2m")
+spawn_path = NodePath("..")
+
+[node name="Spawnpoint" type="Node2D" parent="." unique_id=575017788]
+unique_name_in_owner = true
+position = Vector2(582, 340)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1412824271]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1046590875]
+position = Vector2(591, 554)
+shape = SubResource("WorldBoundaryShape2D_bhunq")
+
+[connection signal="pressed" from="CanvasLayer/TEST_MENU/MarginContainer/VBoxContainer/HOST" to="." method="_on_host_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
+
+[editable path="CanvasLayer/TEST_MENU"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Friendslop_Game"
-run/main_scene="uid://63awqarrwf3h"
+run/main_scene="uid://vuufbq7n6tpy"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
