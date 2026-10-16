@@ -46,12 +46,22 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0
 text = "STEAM_NAME"
 
 [node name="Nose" type="MeshInstance3D" parent="Head" unique_id=21577363]
+unique_name_in_owner = true
 transform = Transform3D(-0.99999994, 0, -3.5527137e-15, 0, -4.371138e-08, 1, 0, 0.99999994, 4.371139e-08, 0, -0.2444905, -0.5171578)
 layers = 524288
 mesh = SubResource("CylinderMesh_bhunq")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=96334726]
 unique_name_in_owner = true
+
+[node name="RayCastObject" type="RayCast3D" parent="Head/Camera3D" unique_id=1755503672]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -2)
+collision_mask = 3
+
+[node name="Hand" type="Node3D" parent="Head" unique_id=2015425342]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26945335, -0.1542908, -1.500701)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1596560050]
 replication_config = SubResource("SceneReplicationConfig_bkxdp")

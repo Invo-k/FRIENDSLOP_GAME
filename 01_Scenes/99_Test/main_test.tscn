@@ -9,6 +9,14 @@ fog_light_color = Color(0.47022265, 0.57955533, 0.5321022, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6uky"]
 albedo_color = Color(0.5058824, 1, 1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wo2q5"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_riqys"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b6uky"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
 [node name="Main" type="Node3D" unique_id=727481569]
 script = ExtResource("1_wo2q5")
 
@@ -44,5 +52,16 @@ unique_name_in_owner = true
 offset_right = 1148.0
 offset_bottom = 23.0
 text = "ID DEL SERVIDOR:"
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=173493634 groups=["pickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.872277, 8.650421)
+mass = 0.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1151971351]
+material_override = SubResource("StandardMaterial3D_wo2q5")
+mesh = SubResource("BoxMesh_riqys")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1574420135]
+shape = SubResource("ConvexPolygonShape3D_b6uky")
 
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

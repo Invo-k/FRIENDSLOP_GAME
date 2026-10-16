@@ -11,10 +11,17 @@ var T_BOB = 0.0
 
 @onready var steam_name: Label3D = %SteamName
 @onready var head: Node3D = %Head
+@onready var hand: Node3D = %Hand
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var ray_cast_object: RayCast3D = %RayCastObject
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
-@onready var nose: MeshInstance3D = $Head/Nose
+@onready var nose: MeshInstance3D = %Nose
 const TEST_MENU_AUDIO = preload("uid://cvppsq20d7hl2")
+
+var held_object: RigidBody3D = null
+
+var held_object_collision_layer: int = 1
+var held_object_collision_mask: int = 1
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int()) #para determinar la autoridad del personaje a la hora de cargarlo.
@@ -47,10 +54,11 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
 	move_and_jump(delta)
 	
 	move_and_slide()
+	
+	handle_interaction()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -125,3 +133,71 @@ func camera_fov_edit(delta):
 		
 		else:
 			camera_3d.fov = lerp(camera_3d.fov, BASE_FOV, delta * 8.0)
+
+func handle_interaction() -> void:
+	if Input.is_action_just_pressed("interact"):
+		if held_object == null:
+			try_pick_object()
+
+	if held_object != null:
+		if Input.is_action_pressed("interact"):
+			update_held_object()
+		else:
+			drop_object()
+
+
+func try_pick_object() -> void:
+	ray_cast_object.force_raycast_update()
+
+	if not ray_cast_object.is_colliding():
+		return
+
+	var object := ray_cast_object.get_collider()
+
+	if not object is RigidBody3D:
+		return
+
+	if not object.is_in_group("pickable"):
+		return
+
+	held_object = object as RigidBody3D
+
+	held_object_collision_layer = held_object.collision_layer
+	held_object_collision_mask = held_object.collision_mask
+
+	# Desactivar la física mientras lo sujetamos.
+	held_object.freeze = true
+	held_object.linear_velocity = Vector3.ZERO
+	held_object.angular_velocity = Vector3.ZERO
+
+	# Evitar colisiones mientras está en la mano.
+	held_object.collision_layer = 0
+	held_object.collision_mask = 0
+
+	update_held_object()
+
+
+func update_held_object() -> void:
+	if not is_instance_valid(held_object):
+		held_object = null
+		return
+
+	held_object.global_transform = hand.global_transform
+
+
+func drop_object() -> void:
+	if not is_instance_valid(held_object):
+		held_object = null
+		return
+
+	var object_to_drop := held_object
+	held_object = null
+
+	# Restaurar las colisiones originales.
+	object_to_drop.collision_layer = held_object_collision_layer
+	object_to_drop.collision_mask = held_object_collision_mask
+
+	# Devolver el control a la física.
+	object_to_drop.freeze = false
+	object_to_drop.linear_velocity = velocity
+	object_to_drop.angular_velocity = Vector3.ZERO
