@@ -9,14 +9,33 @@ extends CharacterBody3D
 @export var FOV_CHANGE = 1.5
 var T_BOB = 0.0
 
+@onready var steam_name: Label3D = %SteamName
 @onready var head: Node3D = %Head
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int()) #para determinar la autoridad del personaje a la hora de cargarlo.
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	camera_3d.current = is_multiplayer_authority()
+	if is_multiplayer_authority():
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	_apply_player_color()
+	steam_name.text = Steam.getPersonaName()
+
+func _apply_player_color() -> void:
+	var mesh := mesh_instance_3d as MeshInstance3D
+	var base_mat := mesh.get_active_material(0)
+	var new_mat: StandardMaterial3D
+	if base_mat is StandardMaterial3D:
+		new_mat = base_mat.duplicate() as StandardMaterial3D
+	else:
+		new_mat = StandardMaterial3D.new()
+
+	new_mat.albedo_color = Color(randf_range(0,1), randf_range(0,1), randf_range(0,1))
+
+	mesh.set_surface_override_material(0, new_mat)
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -31,6 +50,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera_3d.rotate_x(-event.relative.y * SENSITIVITY)

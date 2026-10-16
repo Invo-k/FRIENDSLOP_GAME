@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://63awqarrwf3h"]
+
+[ext_resource type="PackedScene" uid="uid://bkj7rbql7e8jp" path="res://01_Scenes/99_Test/test_menu.tscn" id="1_b6uky"]
+[ext_resource type="Script" uid="uid://dchinkfq5henj" path="res://01_Scenes/99_Test/main_test.gd" id="1_wo2q5"]
+
+[sub_resource type="Environment" id="Environment_bhunq"]
+fog_enabled = true
+fog_light_color = Color(0.47022265, 0.57955533, 0.5321022, 1)
+
+[node name="Main" type="Node3D" unique_id=727481569]
+script = ExtResource("1_wo2q5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1969673273]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Spawnpoint" type="Node3D" parent="." unique_id=1080682020]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7960196, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2054258821]
+environment = SubResource("Environment_bhunq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1451736397]
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=910134058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4877319, 0)
+use_collision = true
+size = Vector3(10, 4, 10)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1335122790]
+_spawnable_scenes = PackedStringArray("uid://bxi31xk3ylcxn")
+spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=393921446]
+unique_name_in_owner = true
+
+[node name="TEST_MENU" parent="CanvasLayer" unique_id=976001990 instance=ExtResource("1_b6uky")]
+
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
+[connection signal="pressed" from="CanvasLayer/TEST_MENU/MarginContainer/VBoxContainer/HOST" to="." method="_on_host_pressed"]
+
+[editable path="CanvasLayer/TEST_MENU"]

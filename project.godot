@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SteamNetworking="*uid://cm3y0hp2h23jk"
+SteamManager="*uid://cm3y0hp2h23jk"
 
 [display]
 

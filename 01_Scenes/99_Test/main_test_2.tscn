@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://vuufbq7n6tpy"]
 
-[ext_resource type="Script" uid="uid://dchinkfq5henj" path="res://01_Scenes/99_Test/main_test.gd" id="1_h7823"]
 [ext_resource type="PackedScene" uid="uid://bkj7rbql7e8jp" path="res://01_Scenes/99_Test/test_menu.tscn" id="2_rdi2q"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bhunq"]
 
 [node name="Main" type="Node2D" unique_id=1126822181]
-script = ExtResource("1_h7823")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1286772384]
 unique_name_in_owner = true
