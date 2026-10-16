@@ -12,6 +12,12 @@ var is_host := false
 var is_joining := false
 const CHARACTER_TEST = preload("uid://bxi31xk3ylcxn")
 
+const CODE_CHARACTERS := "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+const CODE_LENGTH := 6
+var lobby_codes: Dictionary = {}
+
+
+
 func _ready() -> void:
 	Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(on_lobby_created)
@@ -35,6 +41,13 @@ func on_lobby_created(result: int, lobby_id: int) -> void:
 	#crea el lobby como host
 	if result == Steam.Result.RESULT_OK:
 		self.lobby_id = lobby_id
+		
+		var code := generate_lobby_code()
+		while lobby_codes.has(code):
+			code = generate_lobby_code()
+		lobby_codes[code] = lobby_id
+		Steam.setLobbyData(lobby_id, "join_code", code)
+		
 		peer = SteamMultiplayerPeer.new()
 		peer.server_relay = true
 		peer.create_host()
@@ -46,6 +59,8 @@ func on_lobby_created(result: int, lobby_id: int) -> void:
 		spawn_player()
 		
 		print("SE HA CREADO EL LOBBY. Nº DE LOBBY: ", lobby_id)
+		print("ID de Steam: ", lobby_id)
+		print("Código modificado del lobby: ", code)
 
 ##Se llama cuando alguien se une al lobby, después de que se cree el lobby
 func on_lobby_joined(lobby_id : int, permissions: int, locked: bool, response: int) -> void:
@@ -91,3 +106,12 @@ func remove_player(id: int):
 	
 	players.erase(id)
 	self.get_node(str(id)).queue_free()
+
+func generate_lobby_code() -> String:
+	var code := ""
+
+	for i in range(CODE_LENGTH):
+		var index := randi_range(0, CODE_CHARACTERS.length() - 1)
+		code += CODE_CHARACTERS[index]
+
+	return code.insert(3, "-")

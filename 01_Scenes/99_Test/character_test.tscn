@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxi31xk3ylcxn"]
 
 [ext_resource type="Script" uid="uid://b8mwxvi2878b2" path="res://01_Scenes/99_Test/character_test.gd" id="1_bkxdp"]
+[ext_resource type="Script" uid="uid://dpqdtbyms21yc" path="res://01_Scenes/99_Test/voice_player.gd" id="2_5ll5t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bhunq"]
 
@@ -22,7 +23,7 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Head/Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Label3D:text")
+properties/3/path = NodePath("Head/SteamName:text")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
@@ -44,8 +45,9 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.60160846, 0)
 text = "STEAM_NAME"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head" unique_id=21577363]
+[node name="Nose" type="MeshInstance3D" parent="Head" unique_id=21577363]
 transform = Transform3D(-0.99999994, 0, -3.5527137e-15, 0, -4.371138e-08, 1, 0, 0.99999994, 4.371139e-08, 0, -0.2444905, -0.5171578)
+layers = 524288
 mesh = SubResource("CylinderMesh_bhunq")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=96334726]
@@ -53,3 +55,7 @@ unique_name_in_owner = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1596560050]
 replication_config = SubResource("SceneReplicationConfig_bkxdp")
+
+[node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1901476580]
+unique_name_in_owner = true
+script = ExtResource("2_5ll5t")

@@ -6,6 +6,9 @@
 fog_enabled = true
 fog_light_color = Color(0.47022265, 0.57955533, 0.5321022, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6uky"]
+albedo_color = Color(0.5058824, 1, 1, 1)
+
 [node name="Main" type="Node3D" unique_id=727481569]
 script = ExtResource("1_wo2q5")
 
@@ -25,12 +28,21 @@ use_collision = true
 size = Vector3(100, 1, 100)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=910134058]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4877319, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9929888, 0)
 use_collision = true
-size = Vector3(10, 4, 10)
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_b6uky")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1335122790]
 _spawnable_scenes = PackedStringArray("uid://bxi31xk3ylcxn")
 spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=304454241]
+
+[node name="SERVER_ID_TEXT" type="Label" parent="CanvasLayer" unique_id=1034018091]
+unique_name_in_owner = true
+offset_right = 1148.0
+offset_bottom = 23.0
+text = "ID DEL SERVIDOR:"
 
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

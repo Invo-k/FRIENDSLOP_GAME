@@ -13,16 +13,20 @@ var T_BOB = 0.0
 @onready var head: Node3D = %Head
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var nose: MeshInstance3D = $Head/Nose
+const TEST_MENU_AUDIO = preload("uid://cvppsq20d7hl2")
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int()) #para determinar la autoridad del personaje a la hora de cargarlo.
 
 func _ready() -> void:
+	GlobalData.is_on_menu = false
 	camera_3d.current = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_apply_player_color()
 	steam_name.text = Steam.getPersonaName()
+	nose.visible = not is_multiplayer_authority()
 
 func _apply_player_color() -> void:
 	var mesh := mesh_instance_3d as MeshInstance3D
@@ -59,6 +63,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("esc"):
 		get_tree().quit()
+	
+	if Input.is_action_just_pressed("tab"):
+		var audio_menu = TEST_MENU_AUDIO.instantiate()
+		call_deferred("add_child", audio_menu)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func move_and_jump(delta):
 	# Handle jump.

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cvppsq20d7hl2"]
+
+[ext_resource type="Script" uid="uid://d1cum2xytmr0w" path="res://01_Scenes/99_Test/test_menu_audio.gd" id="1_phch1"]
+
+[node name="Control" type="Control" unique_id=2142740000]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_phch1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1677757791]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2131485042]
+layout_mode = 2
+
+[node name="InputOption" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=1836718594]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OutputOption" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=1736841462]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MicLevel" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=197527248]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 0.3
+step = 0.001
+show_percentage = false
+
+[node name="MuteMic" type="CheckButton" parent="MarginContainer/VBoxContainer" unique_id=995687147]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Mute"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1488994546]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "SALIR"
+
+[node name="MicStatus" type="Label" parent="." unique_id=2044273145]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 393.0
+offset_top = 610.0
+offset_right = 852.0
+offset_bottom = 633.0
+
+[node name="SERVER_ID_TEXT" type="Label" parent="." unique_id=649305138]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1148.0
+offset_bottom = 23.0
+text = "ID DEL SERVIDOR:"
+
+[node name="COPY_BUTTON" type="Button" parent="SERVER_ID_TEXT" unique_id=567859462]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 131.0
+offset_bottom = 41.0
+text = "COPIAR EL ID"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="SERVER_ID_TEXT/COPY_BUTTON" to="." method="_on_copy_button_pressed"]

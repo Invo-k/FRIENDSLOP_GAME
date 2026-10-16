@@ -41,6 +41,18 @@ layout_mode = 2
 placeholder_text = "ID DEL SERVIDOR"
 alignment = 1
 
+[node name="Ajustes" type="MarginContainer" parent="." unique_id=1650895815]
+layout_mode = 0
+offset_left = 904.0
+offset_top = 564.0
+offset_right = 1129.0
+offset_bottom = 626.0
+
+[node name="AJUSTES" type="Button" parent="Ajustes" unique_id=1701369059]
+layout_mode = 2
+text = "AJUSTES AUDIO"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HOST" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/JOIN" to="." method="_on_join_pressed"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/ID_prompt" to="." method="_on_id_prompt_text_changed"]
+[connection signal="pressed" from="Ajustes/AJUSTES" to="." method="_on_ajustes_pressed"]
