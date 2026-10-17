@@ -39,9 +39,11 @@ func _ready() -> void:
 	_load()
 	_inputs = get_input_devices()
 	_outputs = get_output_devices()
-	# Al arrancar aún no hay micro activo, así que se puede asignar directamente
-	AudioServer.input_device = preferred_input if preferred_input in _inputs else "Default"
-	AudioServer.output_device = preferred_output if preferred_output in _outputs else "Default"
+	#Al arrancar aún no hay micro activo, así que se puede asignar directamente
+	if preferred_input != "Default" and preferred_input in _inputs:
+		AudioServer.input_device = preferred_input
+	if preferred_output != "Default" and preferred_output in _outputs:
+		AudioServer.output_device = preferred_output
 
 	var timer := Timer.new()
 	timer.wait_time = 2.0
@@ -63,10 +65,13 @@ func set_output(device: String) -> void:
 	output_changed.emit()
 
 func _switch_input(device: String) -> void:
+	var target := device if device in get_input_devices() else "Default"
+	if target == AudioServer.input_device:
+		return
 	_switch_id += 1
 	var id := _switch_id
-	input_changing.emit() #voice capture para el micro
-	AudioServer.input_device = device if device in get_input_devices() else "Default"
+	input_changing.emit()
+	AudioServer.input_device = target
 	await get_tree().create_timer(0.3).timeout
 	if id != _switch_id:
 		return

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8mwxvi2878b2" path="res://01_Scenes/99_Test/character_test.gd" id="1_bkxdp"]
 [ext_resource type="Script" uid="uid://dpqdtbyms21yc" path="res://01_Scenes/99_Test/voice_player.gd" id="2_5ll5t"]
+[ext_resource type="Texture2D" uid="uid://cvita5gcfw7of" path="res://icon.svg" id="3_fa55e"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bhunq"]
 
@@ -25,10 +26,13 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 properties/3/path = NodePath("Head/SteamName:text")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 
 [node name="Character_Test" type="CharacterBody3D" unique_id=732000445]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_bkxdp")
+MAX_SWING_SPEED = 6.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=731841785]
 mesh = SubResource("CapsuleMesh_bhunq")
@@ -57,15 +61,64 @@ unique_name_in_owner = true
 [node name="RayCastObject" type="RayCast3D" parent="Head/Camera3D" unique_id=1755503672]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -2)
-collision_mask = 3
+collision_mask = 5
 
-[node name="Hand" type="Node3D" parent="Head" unique_id=2015425342]
+[node name="Hand" type="Node3D" parent="Head/Camera3D" unique_id=2015425342]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26945335, -0.1542908, -1.500701)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1596560050]
-replication_config = SubResource("SceneReplicationConfig_bkxdp")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26945335, -0.1542908, -1.9660218)
 
 [node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1901476580]
 unique_name_in_owner = true
 script = ExtResource("2_5ll5t")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1596560050]
+replication_config = SubResource("SceneReplicationConfig_bkxdp")
+
+[node name="PlayerUI" type="CanvasLayer" parent="." unique_id=769319553]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="PlayerUI" unique_id=1960428276]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerUI/Control" unique_id=898320734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 830
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 200
+
+[node name="ThrowChargeBar" type="ProgressBar" parent="PlayerUI/Control/MarginContainer" unique_id=1454758822]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="PlayerUI/Control" unique_id=1231922923]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_fa55e")
+expand_mode = 3
+stretch_mode = 5

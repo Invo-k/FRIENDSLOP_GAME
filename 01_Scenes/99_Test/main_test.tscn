@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://63awqarrwf3h"]
 
 [ext_resource type="Script" uid="uid://dchinkfq5henj" path="res://01_Scenes/99_Test/main_test.gd" id="1_wo2q5"]
+[ext_resource type="Script" uid="uid://4bhdmv5ksxuv" path="res://01_Scenes/99_Test/pickable_object.gd" id="2_wo2q5"]
 
 [sub_resource type="Environment" id="Environment_bhunq"]
 fog_enabled = true
@@ -17,6 +18,31 @@ albedo_color = Color(0, 1, 0, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b6uky"]
 points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcnq1"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_5ll5t"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qqalg"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.014651676, 0.47069666, 0.47069666, 0.073521286, 0.35295743, 0.47060993, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.014651676, 0.47069666, -0.47069666, 0.5, -0.5, 0.5, -0.014651676, 0.47069666, 0.47069666, 0.014651676, 0.47069666, -0.47069666)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqalg"]
+albedo_color = Color(0, 1, 0.87058824, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_kxkid"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kxkid"]
+points = PackedVector3Array(-0.97744143, 0.049764834, -0.18312658, 0.9774394, 0.049767062, 0.18313551, 0.9784049, -0.04182494, 0.1833164, -0.18351372, -0.041821305, 0.978376, -0.11702969, -0.24486797, -0.7902605, 0.25877878, 0.24850625, -0.71911687, -0.14399064, 0.24875438, 0.7487126, -0.3805545, -0.24498063, 0.70291454, 0.76708823, -0.21733022, -0.4127724, -0.5900629, 0.22526969, -0.6196291, 0.5235438, -0.24330005, 0.61069316, 0.5597305, 0.22491772, 0.6479886, -0.78067034, 0.16910996, 0.5103477, -0.8599503, -0.21848288, 0.11854925, 0.39532635, 0.049568705, -0.91228336, 0.8007586, 0.19678749, -0.41499034, -0.5424449, -0.10144918, -0.81355554, 0.45675743, 0.049633868, 0.8832485, -0.7487183, 0.24875413, -0.14396916, -0.15199271, 0.079948075, -0.97277045, -0.8135618, -0.101449355, 0.5424342, 0.74868, 0.24875784, 0.14397135, -0.7027667, -0.24499057, -0.38073763, 0.12000745, -0.16120075, -0.9309316, 0.850308, -0.041520163, -0.516225, 0.14946537, -0.19034863, 0.8969633, 0.7902525, -0.24487938, 0.11682966, 0.75638217, -0.07161803, 0.6352837, -0.30216888, 0.14003108, 0.90702254, -0.8772622, -0.071607776, -0.4537938, 0.4767621, -0.18975163, -0.7750546, 0.18160948, 0.14029223, 0.9391314)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sn0t7"]
+size = Vector3(6.51001, 18.864502, 102.521454)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b6uky"]
+size = Vector3(102, 18.865, 3.650607)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wo2q5"]
+size = Vector3(102, 9.825991, 101.28613)
+
 [node name="Main" type="Node3D" unique_id=727481569]
 script = ExtResource("1_wo2q5")
 
@@ -32,8 +58,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7960196, 0)
 environment = SubResource("Environment_bhunq")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1451736397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.210449, 0)
 use_collision = true
-size = Vector3(100, 1, 100)
+size = Vector3(100, 9.420898, 100)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=910134058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9929888, 0)
@@ -53,15 +80,85 @@ offset_right = 1148.0
 offset_bottom = 23.0
 text = "ID DEL SERVIDOR:"
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=173493634 groups=["pickable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.872277, 8.650421)
-mass = 0.1
+[node name="Pickable_Object" type="RigidBody3D" parent="." unique_id=173493634 groups=["pickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.872277, -8.687325)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("2_wo2q5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1151971351]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickable_Object" unique_id=1151971351]
 material_override = SubResource("StandardMaterial3D_wo2q5")
 mesh = SubResource("BoxMesh_riqys")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1574420135]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickable_Object" unique_id=1574420135]
 shape = SubResource("ConvexPolygonShape3D_b6uky")
+
+[node name="Pickable_Object2" type="RigidBody3D" parent="." unique_id=1220008103 groups=["pickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4118242, 1.872277, -8.687325)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("2_wo2q5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickable_Object2" unique_id=1952468393]
+material_override = SubResource("StandardMaterial3D_dcnq1")
+mesh = SubResource("PrismMesh_5ll5t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickable_Object2" unique_id=635846539]
+shape = SubResource("ConvexPolygonShape3D_qqalg")
+
+[node name="Pickable_Object3" type="RigidBody3D" parent="." unique_id=124638015 groups=["pickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.754079, 1.872277, -8.687325)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("2_wo2q5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickable_Object3" unique_id=623336456]
+material_override = SubResource("StandardMaterial3D_qqalg")
+mesh = SubResource("TorusMesh_kxkid")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickable_Object3" unique_id=714601416]
+shape = SubResource("ConvexPolygonShape3D_kxkid")
+
+[node name="Walls" type="Node3D" parent="." unique_id=470663384]
+
+[node name="Wall" type="StaticBody3D" parent="Walls" unique_id=1861352919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.415665, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall" unique_id=1652299323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2220459, 8.932251, -1.2939911)
+shape = SubResource("BoxShape3D_sn0t7")
+debug_color = Color(0.96841747, 0, 0.47107095, 0.41960785)
+
+[node name="Wall2" type="StaticBody3D" parent="Walls" unique_id=204946005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.416, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall2" unique_id=2069129030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.532959, 8.932251, -1.2939911)
+shape = SubResource("BoxShape3D_sn0t7")
+debug_color = Color(0.96841747, 0, 0.47107095, 0.41960785)
+
+[node name="Wall3" type="StaticBody3D" parent="Walls" unique_id=605246192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall3" unique_id=1637986988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.932251, -0.7303276)
+shape = SubResource("BoxShape3D_b6uky")
+debug_color = Color(0.96841747, 0, 0.47107095, 0.41960785)
+
+[node name="Wall4" type="StaticBody3D" parent="Walls" unique_id=483102984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall4" unique_id=1594738918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.932251, -0.53235245)
+shape = SubResource("BoxShape3D_b6uky")
+debug_color = Color(0.96841747, 0, 0.47107095, 0.41960785)
+
+[node name="Wall5" type="StaticBody3D" parent="Walls" unique_id=569860173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall5" unique_id=1644091196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.83078, -51.437057)
+shape = SubResource("BoxShape3D_wo2q5")
+debug_color = Color(0.96841747, 0, 0.47107095, 0.41960785)
 
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

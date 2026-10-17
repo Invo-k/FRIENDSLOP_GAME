@@ -35,10 +35,11 @@ func _ready() -> void:
 	_mic_player.stream = AudioStreamMicrophone.new()
 	_mic_player.bus = "Mic"
 	add_child(_mic_player)
-	_start_mic()
 
 	AudioDevices.input_changing.connect(_on_input_changing)
 	AudioDevices.input_changed.connect(_start_mic)
+	await get_tree().create_timer(0.5).timeout
+	_start_mic()
 
 func _on_input_changing() -> void:
 	_gen += 1
